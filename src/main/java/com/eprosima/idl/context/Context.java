@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 
@@ -17,12 +18,11 @@ import com.eprosima.idl.parser.tree.Operation;
 import com.eprosima.idl.parser.tree.Param;
 import com.eprosima.idl.parser.typecode.Annotation;
 import com.eprosima.idl.parser.typecode.TypeCode;
-
 import com.eprosima.idl.util.Util;
 
 public class Context
 {
-    public Context(String filename, String file, ArrayList includePaths)
+    public Context(String filename, String file, List<String> includePaths)
     {
         // Detect OS
         m_os = System.getProperty("os.name");
