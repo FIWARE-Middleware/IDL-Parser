@@ -21,9 +21,7 @@ tags
 cscope.out
 # Compiled python objects
 *.pyc
-
 #### Project files ####
-
 # Generated Java source
 src/com/eprosima/idl/parser/grammar/IDLLexer.java
 src/com/eprosima/idl/parser/grammar/IDLLexer.smap
@@ -34,3 +32,6 @@ src/com/eprosima/idl/parser/grammar/IDLTokenTypes.txt
 /target/
 /build
 /.gradle
+.project
+.settings
+.classpath

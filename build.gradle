@@ -1,58 +1,30 @@
-// In this section you declare the used plugins
-// community plugins
 plugins {
-    id "me.champeau.gradle.antlr4" version "0.1" // antlr4 community plugin.
+    id 'java'
+    id 'maven'
+    id 'eclipse'
+    id "com.bmuschko.nexus" version "2.1.1"
+    id "me.champeau.gradle.antlr4" version "0.1"
 }
 
-// internal plugins
-apply plugin: 'java'
-apply plugin: 'maven'   // only needed to generate POM or to upload artifacts to maven repos.
-apply plugin: 'eclipse' // Eclipse integration
-apply plugin: 'idea'	// InteliJ IDEA integration
-apply plugin: 'project-report'
+//general & artifact properties
+group = 'org.fiware.kiara'
+version = '0.1.0'
+description = "KIARA Advanced Middleware IDL parser"
 
-//general properties
-jar {
-	baseName = 'kiaraparser'
-    version =  '0.1.0'
-}
-
-description = """"""
-
-// java plugin properties (until antlr 4.4 we have to set this to 1.6)
-// (https://github.com/antlr/antlr4/issues/487)
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-// temporary fix until we can switch to sourceCompatibility=1.7+
-// (http://stackoverflow.com/a/20779740)
+// fix bootstrap class path not set, when compile to different java version
 tasks.withType(JavaCompile) {
-	options.bootClasspath = "$System.env.JAVA_HOME/jre/lib/rt.jar"
+    options.bootClasspath = "$System.env.JAVA_HOME/jre/lib/rt.jar"
 }
 
-// maven-plugin properties
-group = 'com.eprosima.idl'
-
-// antlr4-plugin configuration
-// make the Java compile task depend on the antlr4 task
-compileJava.dependsOn antlr4
-// add the generated source files to the list of java sources
-sourceSets.main.java.srcDirs += antlr4.output
-// add antlr4 to classpath
-configurations {
-   compile.extendsFrom antlr4
-}
 
 // In this section you declare where to find the dependencies of your project
 // see also: http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html#N10621
 repositories {
-    // You can declare any Maven/Ivy/file repository here.
-    // e.g. for 'jcenter.bintray.com' for resolving your dependencies use:
-    // jcenter()
-    // and/or use the standard mavenCentral repositoy:
+    mavenLocal()
     mavenCentral()
-    // and/or use use a custom maven repository:
-    // maven { url "http://repo.mycompany.com/maven2" }
 }
 
 dependencies {
@@ -61,6 +33,66 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version:'4.10'
 }
 
+modifyPom {
+    project {
+        name project.description
+        artifactId project.name
+        description project.description
+        url 'https://github.com/FIWARE-Middleware'
+        inceptionYear '2014'
+        
+        scm {
+          connection 'scm:git:https://github.com/FIWARE-Middleware/IDL-Parser.git'
+          developerConnection 'scm:git:https://github.com/FIWARE-Middleware/IDL-Parser.git'
+          url 'https://github.com/FIWARE-Middleware/IDL-Parser.git'
+        }
+
+        licenses {
+          license {
+            name 'GNU Lesser General Public License, Version 3.0'
+            url 'https://www.gnu.org/licenses/lgpl.html'
+          }
+        }
+
+        developers {
+          developer {
+            id 'richiprosima'
+            name 'Riccardo Gonzalez'
+            email 'RicardoGonzalez@eprosima.com'
+          }
+          developer {
+            id 'RafaelLaraAlvarez'
+            name 'Rafael Lara Alvarez'
+            email 'RafaelLara@eprosima.com'
+          }
+          developer {
+            id 'dmrub'
+            name 'Dmitri Rubinstein'
+            email 'mach@zhaw.ch'
+          }
+          developer {
+            id 'mach'
+            name 'Christof Marti'
+            email 'mach@zhaw.ch'
+          }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    javadoc = true
+    tests = false
+}
+
+nexus {
+    sign = true
+    // To upload to OSSRH comment/remove the following urls
+    repositoryUrl = "file:$buildDir/repos/"
+    snapshotRepositoryUrl = "file:$buildDir/repos/"
+}
+
+// configure antlr4 plugin
 antlr4.source = project.file("src/main/antlr4")
 antlr4.listener = true
 antlr4.visitor = true
