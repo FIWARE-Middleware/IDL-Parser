@@ -27,6 +27,10 @@ public class UnionTypeCode extends MemberedTypeCode
         st.setAttribute("name", getScopedname());
         return st.toString();
     }
+    @Override
+    public boolean isIsType_b(){
+    	return true;
+    }
     
     @Override
     public String getIdlTypename()
@@ -54,6 +58,12 @@ public class UnionTypeCode extends MemberedTypeCode
     public String getDefaultvalue()
     {
         return m_defaultValue;
+    }
+    
+    // Used in stringtemplates
+    public UnionMember getDefaultMember()
+    {
+    	return (UnionMember) getMembers().get(m_defaultindex);
     }
     
     // Used in stringtemplates
