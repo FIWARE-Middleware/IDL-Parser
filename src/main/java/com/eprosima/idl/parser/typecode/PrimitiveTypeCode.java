@@ -30,6 +30,11 @@ public class PrimitiveTypeCode extends TypeCode
     }
     
     @Override
+    public boolean isType_boolean() {
+    	return this.getKind() == KIND_BOOLEAN;
+    }
+    
+    @Override
     public String getInitialValue()
     {   
         switch(getKind())

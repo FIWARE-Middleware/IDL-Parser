@@ -6,6 +6,7 @@ import com.eprosima.idl.util.Pair;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class UnionTypeCode extends MemberedTypeCode
 {
