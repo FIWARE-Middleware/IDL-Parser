@@ -19,7 +19,11 @@ public class UnionMember extends Member
     
     public void addLabel(String label)
     {
-        m_labels.add(label);
+    	if (label.startsWith("::")) {
+    		m_labels.add(label.substring(2));
+    	} else {
+    		m_labels.add(label);
+    	}
     }
     
     public List<String> getLabels()
