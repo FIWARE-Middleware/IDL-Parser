@@ -35,6 +35,11 @@ public class PrimitiveTypeCode extends TypeCode
     }
     
     @Override
+    public boolean isType_character(){
+    	return this.getKind() == KIND_CHAR;
+	}
+    
+    @Override
     public String getInitialValue()
     {   
         switch(getKind())
