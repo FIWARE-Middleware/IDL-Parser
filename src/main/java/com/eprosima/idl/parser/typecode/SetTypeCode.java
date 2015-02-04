@@ -14,6 +14,9 @@ public class SetTypeCode extends ContainerTypeCode
 
     @Override
     public boolean isIsType_e(){return true;}
+    
+    @Override
+    public boolean isType_set() {return true;}
 
     @Override
     public String getCppTypename()
