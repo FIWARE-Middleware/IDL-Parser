@@ -21,6 +21,9 @@ public class StringTypeCode extends TypeCode
     public boolean isIsType_d(){return true;}
     
     @Override
+    public boolean isString(){return true;}
+    
+    @Override
     public String getCppTypename()
     {
         return getCppTypenameFromStringTemplate().toString();

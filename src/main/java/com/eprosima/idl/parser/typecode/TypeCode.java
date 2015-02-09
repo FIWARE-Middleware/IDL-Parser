@@ -121,10 +121,14 @@ public abstract class TypeCode
     //public abstract int getMaxSerializedSizeWithoutAlignment(int currentSize);
     
     /*** Functions to know the type in string templates ***/
- // By default a typecode is not string. Function used in stringtemplates 
+ // By default a typecode is not string. Function used in stringtemplates
+    public boolean isString(){return false;}
+    public boolean isContainer(){return false;}
+    public boolean isMembered(){return false;}
     public boolean isType_boolean(){return false;}
     public boolean isType_character(){return false;}
     public boolean isType_set(){return false;}
+    public boolean isType_map(){return false;}
     public boolean isIsType_5(){return false;}
     public boolean isIsType_6(){return false;}
     public boolean isIsType_d(){return false;}

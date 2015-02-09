@@ -13,7 +13,7 @@ public class MapTypeCode extends ContainerTypeCode
     }
 
     @Override
-    public boolean isIsType_e(){return true;}
+    public boolean isType_map(){return true;}
 
     @Override
     public String getCppTypename()

@@ -13,6 +13,9 @@ public abstract class ContainerTypeCode extends TypeCode
     @Override
     public abstract String getIdlTypename();
     
+    @Override
+    public boolean isContainer(){return true;}
+    
     public TypeCode getContentTypeCode()
     {
         return m_contentTypeCode;

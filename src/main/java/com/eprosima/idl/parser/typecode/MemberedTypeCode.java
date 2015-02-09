@@ -18,6 +18,9 @@ public abstract class MemberedTypeCode extends TypeCode
         return m_name;
     }
     
+    @Override
+    public boolean isMembered(){return true;}
+    
     public String getScopedname()
     {
         if(m_scope.isEmpty())
