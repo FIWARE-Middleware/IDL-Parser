@@ -29,6 +29,36 @@ public class AliasTypeCode extends ContainerTypeCode
 
         return super.getContentTypeCode();
     }
+    
+    @Override
+    public int getDepth() {
+    	int ret = 0;
+    	if(super.getContentTypeCode() instanceof AliasTypeCode) {
+            AliasTypeCode alias = (AliasTypeCode)super.getContentTypeCode();
+            return ret + alias.getDepth();
+        } else if (super.getContentTypeCode() instanceof ContainerTypeCode) {
+            ContainerTypeCode container = (ContainerTypeCode)super.getContentTypeCode();
+            return ret + container.getDepth();
+        }
+    	return ret;
+    }
+    
+    /*@Override
+    public TypeCode getUpperTypeCode() {
+    	if(super.getContentTypeCode() instanceof AliasTypeCode) {
+            AliasTypeCode alias = (AliasTypeCode) super.getContentTypeCode();
+            return alias.getUpperTypeCode();
+        } else if (super.getContentTypeCode() instanceof ContainerTypeCode) {
+            ContainerTypeCode container = (ContainerTypeCode) super.getContentTypeCode();
+            if (container.getContentTypeCode() instanceof AliasTypeCode) {
+            	AliasTypeCode alias = (AliasTypeCode) container.getContentTypeCode();
+            	return alias.getUpperTypeCode();
+            } else {
+            	return container.getContentTypeCode();
+            }
+        }
+    	return super.getContentTypeCode();
+    }*/
 
     public TypeCode getTypedefContentTypeCode()
     {
@@ -103,7 +133,7 @@ public class AliasTypeCode extends ContainerTypeCode
         // TODO
         return 0;
     }
-
+    
     /*** Functions to know the type in string templates ***/
     @Override
     public boolean isIsType_d()
@@ -147,6 +177,6 @@ public class AliasTypeCode extends ContainerTypeCode
     /*** End of functions that alias has to export because some typecodes have them*/
 
     private String m_name = null;
-
+    
     private String m_scope = null;
 }

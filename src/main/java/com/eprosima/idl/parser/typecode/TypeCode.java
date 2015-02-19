@@ -139,10 +139,16 @@ public abstract class TypeCode
     public boolean isIsType_b(){return false;}
     public boolean isIsType_10(){return false;}
     /*** End of functions to know the type in string templates ***/
+    
+    public boolean isTypedef() {return true;};
 
     public Object getParent()
     {
         return m_parent;
+    }
+    
+    public TypeCode getUpperTypeCode() {
+    	return this;
     }
 
     public void setParent(Object parent)

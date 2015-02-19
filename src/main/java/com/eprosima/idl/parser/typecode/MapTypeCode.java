@@ -11,6 +11,18 @@ public class MapTypeCode extends ContainerTypeCode
         super(MapTypeCode.KIND_MAP);
         m_maxsize = maxsize;
     }
+    
+    @Override
+    public TypeCode getUpperTypeCode() {
+    	if(m_keyTypeCode instanceof AliasTypeCode) {
+            AliasTypeCode alias = (AliasTypeCode) m_keyTypeCode;
+            return alias.getUpperTypeCode();
+        } else if (m_keyTypeCode instanceof ContainerTypeCode) {
+            ContainerTypeCode container = (ContainerTypeCode) m_keyTypeCode;
+            return container.getUpperTypeCode();
+        }
+    	return m_keyTypeCode;
+    }
 
     @Override
     public boolean isType_map(){return true;}
