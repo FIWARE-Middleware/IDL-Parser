@@ -64,7 +64,11 @@ public class UnionTypeCode extends MemberedTypeCode
     // Used in stringtemplates
     public UnionMember getDefaultMember()
     {
-    	return (UnionMember) getMembers().get(m_defaultindex);
+    	if (this.m_defaultindex != -1) {
+    		return (UnionMember) getMembers().get(m_defaultindex);
+    	} else {
+    		return null;
+    	}
     }
     
     // Used in stringtemplates
