@@ -105,8 +105,8 @@ public class Operation extends TreeNode implements Export, Notebook
         
         return inoutput;
     }
-    
-    // TODO Eliminar cuando añadamos los cambios de estandard.
+
+    // TODO Eliminar cuando aadamos los cambios de estandard.
     public void setRettype(TypeCode rettype)
     {
         if(rettype != null)
