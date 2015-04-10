@@ -2,22 +2,21 @@
 // community plugins
 plugins {
     id "me.champeau.gradle.antlr4" version "0.1" // antlr4 community plugin.
+    id "com.bmuschko.nexus" version "2.1.1"
 }
 
 // internal plugins
 apply plugin: 'java'
 apply plugin: 'maven'   // only needed to generate POM or to upload artifacts to maven repos.
 apply plugin: 'eclipse' // Eclipse integration
-apply plugin: 'idea'	// InteliJ IDEA integration
+apply plugin: 'idea'    // InteliJ IDEA integration
 apply plugin: 'project-report'
 
 //general properties
 jar {
 	baseName = 'kiaraparser'
-    version =  '0.1.0'
+    version =  '0.2.0'
 }
-
-description = """"""
 
 // java plugin properties (until antlr 4.4 we have to set this to 1.6)
 // (https://github.com/antlr/antlr4/issues/487)
@@ -31,7 +30,9 @@ tasks.withType(JavaCompile) {
 }
 
 // maven-plugin properties
-group = 'com.eprosima.idl'
+group = 'org.fiware.kiara'
+version = '0.2.0'
+description = "KIARA Advanced Middleware IDL Parser"
 
 // antlr4-plugin configuration
 // make the Java compile task depend on the antlr4 task
@@ -75,4 +76,71 @@ sourceSets.main.java.srcDirs += antlr4.output
 // add antlr4 to classpath
 configurations {
    compile.extendsFrom antlr4
+}
+
+
+test {
+  testLogging {
+    events 'started', 'passed'
+  }
+}
+
+
+modifyPom {
+    project {
+        name 'KIARA Advanced Middleware'
+        artifactId 'kiaraparser'
+        description project.description
+        url 'https://github.com/FIWARE-Middleware'
+        inceptionYear '2014'
+
+        scm {
+          connection 'scm:git:https://github.com/FIWARE-Middleware/IDL-Parser.git'
+          developerConnection 'scm:git:https://github.com/FIWARE-Middleware/IDL-Parser.git'
+          url 'https://github.com/FIWARE-Middleware/IDL-Parser.git'
+        }
+
+        licenses {
+          license {
+            name 'GNU Lesser General Public License, Version 3.0'
+            url 'https://www.gnu.org/licenses/lgpl.html'
+          }
+        }
+
+        developers {
+          developer {
+            id 'richiprosima'
+            name 'Riccardo Gonzalez'
+            email 'RicardoGonzalez@eprosima.com'
+          }
+          developer {
+            id 'RafaelLaraAlvarez'
+            name 'Rafael Lara Alvarez'
+            email 'RafaelLara@eprosima.com'
+          }
+          developer {
+            id 'dmrub'
+            name 'Dmitri Rubinstein'
+            email 'Dmitri.Rubinstein@dfki.de'
+          }
+          developer {
+            id 'mach'
+            name 'Christof Marti'
+            email 'mach@zhaw.ch'
+          }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    javadoc = true
+    tests = false
+}
+
+nexus {
+    sign = true
+    // To upload to OSSRH comment/remove the following urls
+    //repositoryUrl = "file:$buildDir/repos/"
+    //snapshotRepositoryUrl = "file:$buildDir/repos/"
 }
